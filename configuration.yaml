@@ -1,0 +1,54 @@
+
+# Configure a default setup of Home Assistant (frontend, api, etc)
+default_config:
+
+# Uncomment this if you are using SSL/TLS, running in Docker container, etc.
+# http:
+#   base_url: example.duckdns.org:8123
+
+homeassistant:
+  customize: !include customize.yaml
+
+# Dynamic DNS -> Duck DNS
+duckdns:
+  domain: !secret ddns_domain
+  access_token: !secret ddns_token
+
+# Text to speech
+tts:
+  - platform: google_translate
+
+# MQTT -> zigbee2mqtt
+mqtt:
+  discovery: true
+  broker: 192.168.1.100
+  birth_message:
+    topic: 'hass/status'
+    payload: 'online'
+  will_message:
+    topic: 'hass/status'
+    payload: 'offline'
+
+# Sensors
+sensor:
+# BME280 Environmental Sensor
+  - platform: bme280
+    name: Ambient
+    i2c_address: 0x77
+    i2c_bus: 2
+    operation_mode: 2 # forced mode
+    time_standby: 5
+    oversampling_temperature: 4
+    oversampling_pressure: 4
+    oversampling_humidity: 4
+    delta_temperature: -0.5
+    monitored_conditions:
+      - temperature
+      - humidity
+      - pressure
+    scan_interval: 40
+
+group: !include groups.yaml
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml

@@ -1,0 +1,6 @@
+ambient_sensor:
+  name: Environment Sensor
+  entities:
+    - sensor.ambient_temperature
+    - sensor.ambient_humidity
+    - sensor.ambient_pressure
