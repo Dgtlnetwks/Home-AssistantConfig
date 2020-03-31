@@ -30,6 +30,38 @@ mqtt:
     payload: 'offline'
 
 # Sensors
+# IKEA E1743 dimmer switch
+#sensor:
+#  - platform: "mqtt"
+#    state_topic: "zigbee2mqtt/<FRIENDLY_NAME>"
+#    availability_topic: "zigbee2mqtt/bridge/state"
+#    icon: "mdi:toggle-switch"
+#    value_template: "{{ value_json.click }}"
+
+#sensor:
+#  - platform: "mqtt"
+#    state_topic: "zigbee2mqtt/<FRIENDLY_NAME>"
+#    availability_topic: "zigbee2mqtt/bridge/state"
+#    unit_of_measurement: "%"
+#    device_class: "battery"
+#    value_template: "{{ value_json.battery }}"
+
+#sensor:
+#  - platform: "mqtt"
+#    state_topic: "zigbee2mqtt/<FRIENDLY_NAME>"
+#    availability_topic: "zigbee2mqtt/bridge/state"
+#    icon: "mdi:signal"
+#    unit_of_measurement: "lqi"
+#    value_template: "{{ value_json.linkquality }}"
+
+#binary_sensor:
+#  - platform: "mqtt"
+#    state_topic: "zigbee2mqtt/<FRIENDLY_NAME>"
+#    availability_topic: "zigbee2mqtt/bridge/state"
+#    payload_on: true
+#    payload_off: false
+#    value_template: "{{ value_json.update_available }}"
+
 sensor:
 # BME280 Environmental Sensor
   - platform: bme280
@@ -47,6 +79,13 @@ sensor:
       - humidity
       - pressure
     scan_interval: 40
+
+# Philips Hue Bridges
+hue:
+  bridges:
+    - host: 192.168.1.124
+      allow_unreachable: true
+      allow_hue_groups: true
 
 group: !include groups.yaml
 automation: !include automations.yaml

@@ -1,1 +1,132 @@
-[]
+- id: '1585505276243'
+  alias: Turn on dining room light
+  description: IKEA E1743 Dimmer Switch
+  trigger:
+  - device_id: 37c555df438a490aa8beff08c7da08bc
+    discovery_id: 0xccccccfffef23f9d click_on
+    domain: mqtt
+    platform: device
+    subtype: 'on'
+    type: click
+  condition: []
+  action:
+  - brightness_pct: 30
+    device_id: fba65ec0848e4231ad6ccadf1cf4c527
+    domain: light
+    entity_id: light.hue_white_dining_room
+    type: turn_on
+- id: '1585505440113'
+  alias: Turn off dining room light
+  description: IKEA E1743 dimmer switch
+  trigger:
+  - device_id: 37c555df438a490aa8beff08c7da08bc
+    discovery_id: 0xccccccfffef23f9d click_off
+    domain: mqtt
+    platform: device
+    subtype: 'off'
+    type: click
+  condition: []
+  action:
+  - device_id: fba65ec0848e4231ad6ccadf1cf4c527
+    domain: light
+    entity_id: light.hue_white_dining_room
+    type: turn_off
+- id: '1585505635179'
+  alias: Brighten dining room
+  description: IKEA E1743 Dimmer Switch
+  trigger:
+  - device_id: 37c555df438a490aa8beff08c7da08bc
+    discovery_id: 0xccccccfffef23f9d click_brightness_up
+    domain: mqtt
+    platform: device
+    subtype: brightness_up
+    type: click
+  condition: []
+  action:
+  - device_id: fba65ec0848e4231ad6ccadf1cf4c527
+    domain: light
+    entity_id: light.hue_white_dining_room
+    type: brightness_increase
+- id: '1585506012745'
+  alias: Dim dining room
+  description: IKEA E1743 Dimmer Switch
+  trigger:
+  - device_id: 37c555df438a490aa8beff08c7da08bc
+    discovery_id: 0xccccccfffef23f9d click_brightness_down
+    domain: mqtt
+    platform: device
+    subtype: brightness_down
+    type: click
+  condition: []
+  action:
+  - device_id: fba65ec0848e4231ad6ccadf1cf4c527
+    domain: light
+    entity_id: light.hue_white_dining_room
+    type: brightness_decrease
+- id: '1585509056998'
+  alias: Motion detected in Laundry
+  description: IKEA 1525 Motion Detector
+  trigger:
+  - entity_id: automation.motion_detected_in_living_room
+    platform: state
+    to: 'on'
+  condition:
+  - condition: device
+    device_id: 5b64884a3e214ed7869142a96288bee6
+    domain: light
+    entity_id: light.hue_white_laundry_light
+    type: is_off
+  - before: sunrise
+    condition: sun
+  action:
+  - data: {}
+    entity_id: light.hue_white_laundry_light
+    service: light.turn_on
+- id: '1585591236865'
+  alias: Turn off formal dining room light
+  description: IKEA E1743 Dimmer Switch (0xccccccfffeefb3d8)
+  trigger:
+  - entity_id: sensor.formal_dining_switch_click
+    platform: state
+    to: 'off'
+  condition: []
+  action:
+  - data: {}
+    entity_id: light.hue_white_formal_dining_light
+    service: light.turn_off
+- id: '1585591882416'
+  alias: Turn on formal dining room light
+  description: IKEA E1743 Dimmer Switch
+  trigger:
+  - device_id: d2a8b5f36bdd44dda64e5cad5cd7949c
+    discovery_id: 0xccccccfffeefb3d8 click_on
+    domain: mqtt
+    platform: device
+    subtype: 'on'
+    type: click
+  condition: []
+  action:
+  - brightness_pct: 40
+    device_id: 7e31b081c4cc4d09b45256251e05e24e
+    domain: light
+    entity_id: light.hue_white_formal_dining_light
+    type: turn_on
+- id: '1585592684999'
+  alias: Turn off laundry light
+  description: IKEA E1525 Motion Sensor
+  trigger:
+  - entity_id: binary_sensor.motion_detector_occupancy
+    for:
+      minutes: 10
+    platform: state
+    to: 'off'
+  condition:
+  - condition: device
+    device_id: 5b64884a3e214ed7869142a96288bee6
+    domain: light
+    entity_id: light.hue_white_laundry_light
+    type: is_on
+  action:
+  - data: {}
+    entity_id: light.hue_white_laundry_light
+    service: light.turn_off
